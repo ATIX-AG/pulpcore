@@ -1,5 +1,6 @@
 from gettext import gettext as _
 import uuid
+import re
 
 from django.db import models
 from django.db.models import options
@@ -36,6 +37,19 @@ class BaseModel(models.Model):
 
     def __repr__(self):
         return str(self)
+
+    @classmethod
+    def get_pk_path_param_name(cls):
+        """Returns a specific name for the primary key.
+
+        Args:
+
+        Returns:
+            str: *_pk where * is the model name in all lower case letters
+        """
+        return "%s_pk" % "_".join(
+            [part.lower() for part in re.findall("[A-Z][^A-Z]*", cls.__name__)]
+        )
 
 
 class MasterModelMeta(ModelBase):

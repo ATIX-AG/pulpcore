@@ -87,7 +87,7 @@ class PulpOpenAPISchemaGenerator(OpenAPISchemaGenerator):
                                 ].replace("/", "_")
                         if issubclass(resource_model, Import):
                             importer_type = view_cls.parent_viewset.endpoint_name
-                        param_name = self.get_pk_path_param_name_from_model(resource_model)
+                        param_name = resource_model.get_pk_path_param_name()
                         break
                 if param_name:
                     if repository_type:
