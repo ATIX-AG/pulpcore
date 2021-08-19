@@ -236,6 +236,8 @@ class Handler:
             headers (dict): A dictionary of response headers.
         """
         content_type, encoding = mimetypes.guess_type(path)
+        if (not content_type) and (path.endswith("/Release") or path.endswith("/InRelease") or path.endswith("Packages")):
+            content_type = "text/plain"
         headers = {}
         if content_type:
             headers["Content-Type"] = content_type
